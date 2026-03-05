@@ -1,5 +1,5 @@
 {
-  "version": "1.0.4",
-  "apkUrl": "https://github.com/rorywood/pteccontractorapp/releases/download/v1.0.4/powertec-tools.apk",
-  "releaseNotes": "New UI design + dark mode toggle in Settings"
+  "version": "1.0.5",
+  "apkUrl": "https://github.com/rorywood/pteccontractorapp/releases/download/v1.0.5/powertec-tools.apk",
+  "releaseNotes": "Fixed in-app auto-update download"
 }

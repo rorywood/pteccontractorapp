@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Filesystem, Directory } from '@capacitor/filesystem'
+import { FileTransfer } from '@capacitor/file-transfer'
 import { FileOpener } from '@capawesome-team/capacitor-file-opener'
 
-export const CURRENT_VERSION = '1.0.4'
+export const CURRENT_VERSION = '1.0.5'
 const UPDATE_SERVER = 'https://pteccontractorapp.pages.dev'
 
 export interface UpdateInfo {
@@ -60,60 +61,52 @@ export function useAppUpdater() {
     setDownloadState('downloading')
     setDownloadProgress(0)
 
+    // Progress listener handle for cleanup
+    let progressHandle: Awaited<ReturnType<typeof FileTransfer.addListener>> | null = null
+
     try {
-      // Download the APK via fetch with progress tracking
-      const response = await fetch(updateInfo.apkUrl)
-      if (!response.ok) throw new Error('Download failed')
-
-      const contentLength = response.headers.get('Content-Length')
-      const total = contentLength ? parseInt(contentLength, 10) : 0
-      const reader = response.body!.getReader()
-      const chunks: Uint8Array[] = []
-      let received = 0
-
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        chunks.push(value)
-        received += value.length
-        if (total > 0) setDownloadProgress(Math.round((received / total) * 100))
-      }
-
-      // Combine chunks into base64
-      const allBytes = new Uint8Array(received)
-      let offset = 0
-      for (const chunk of chunks) {
-        allBytes.set(chunk, offset)
-        offset += chunk.length
-      }
-
-      // Convert to base64
-      let binary = ''
-      const chunkSize = 8192
-      for (let i = 0; i < allBytes.length; i += chunkSize) {
-        binary += String.fromCharCode(...allBytes.slice(i, i + chunkSize))
-      }
-      const base64 = btoa(binary)
-
-      // Write APK to device storage
       const fileName = `powertec-update-${updateInfo.version}.apk`
-      const result = await Filesystem.writeFile({
+
+      // Resolve the absolute path for the download target
+      const { uri: fileUri } = await Filesystem.getUri({
         path: fileName,
-        data: base64,
         directory: Directory.Cache,
+      })
+      // FileTransfer expects a filesystem path, not a file:// URI
+      const absolutePath = fileUri.replace(/^file:\/\//, '')
+
+      // Listen for native download progress
+      progressHandle = await FileTransfer.addListener('progress', (p) => {
+        if (p.type === 'download' && p.lengthComputable && p.contentLength > 0) {
+          setDownloadProgress(Math.round((p.bytes / p.contentLength) * 100))
+        }
+      })
+
+      // Native download — no JS bridge memory limits
+      const result = await FileTransfer.downloadFile({
+        url: updateInfo.apkUrl,
+        path: absolutePath,
+        progress: true,
+        readTimeout: 120_000,
+        connectTimeout: 30_000,
       })
 
       setDownloadProgress(100)
       setDownloadState('ready')
 
-      // Trigger Android package installer
+      // Trigger the Android package installer
+      const installPath = result.path ?? fileUri
       await FileOpener.openFile({
-        path: result.uri,
+        path: installPath,
         mimeType: 'application/vnd.android.package-archive',
       })
     } catch (e) {
-      console.error('APK download/install error:', e)
+      console.error('APK update error:', e)
       setDownloadState('error')
+    } finally {
+      if (progressHandle) {
+        await progressHandle.remove()
+      }
     }
   }, [updateInfo])
 
