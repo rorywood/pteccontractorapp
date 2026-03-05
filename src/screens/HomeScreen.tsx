@@ -73,9 +73,6 @@ export default function HomeScreen() {
               <h1 className="text-lg font-bold text-slate-900 dark:text-white leading-tight">{MOCK_USER.name}</h1>
             </div>
           </div>
-          <div className="w-11 h-11 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
-            {initials}
-          </div>
         </div>
 
         {/* Stats strip */}
