@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Bash(node:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(ipconfig:*)",
+      "Bash(where java)",
+      "Bash(npm uninstall:*)",
+      "Bash(npx cap:*)",
+      "Bash(ANDROID_SDK_ROOT=\"C:/Users/RoryWood/AppData/Local/Android/Sdk\" JAVA_HOME=\"C:/Program Files/Eclipse Adoptium/jdk-25.0.2.10-hotspot\" npx cap:*)",
+      "Bash(ANDROID_SDK_ROOT=\"C:/Users/RoryWood/AppData/Local/Android/Sdk\" JAVA_HOME=\"C:/Program Files/Eclipse Adoptium/jdk-25.0.2.10-hotspot\" ./gradlew assembleDebug:*)",
+      "Bash(ANDROID_SDK_ROOT=\"C:/Users/RoryWood/AppData/Local/Android/Sdk\" JAVA_HOME=\"C:/Program Files/Eclipse Adoptium/jdk-17.0.18.8-hotspot\" ./gradlew assembleDebug:*)",
+      "Bash(ANDROID_SDK_ROOT=\"C:/Users/RoryWood/AppData/Local/Android/Sdk\" JAVA_HOME=\"C:/Program Files/Eclipse Adoptium/jdk-21.0.10.7-hotspot\" ./gradlew assembleDebug:*)",
+      "Bash(ANDROID_SDK_ROOT=\"C:/Users/RoryWood/AppData/Local/Android/Sdk\" JAVA_HOME=\"C:/Program Files/Eclipse Adoptium/jdk-21.0.10.7-hotspot\" npx cap:*)",
+      "Bash(powershell:*)",
+      "Bash(curl:*)",
+      "Bash(ANDROID_SDK_ROOT=\"C:/Users/RoryWood/AppData/Local/Android/Sdk\" JAVA_HOME=\"C:/Program Files/Eclipse Adoptium/jdk-21.0.10.7-hotspot\":*)",
+      "Bash(ANDROID_SDK_ROOT=\"C:/Users/RoryWood/AppData/Local/Android/Sdk\" JAVA_HOME=\"C:/Program Files/Eclipse Adoptium/jdk-21.0.10.7-hotspot\" npx cap sync android)"
+    ]
+  }
+}
