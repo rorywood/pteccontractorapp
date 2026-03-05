@@ -55,7 +55,7 @@ export default function SettingsScreen({ lastChecked, checking, checkResult, onC
           {/* Version badge */}
           <div className="px-4 py-4 flex items-center justify-between">
             <div>
-              <p className="text-sm font-semibold text-slate-900">Powertec Tools</p>
+              <p className="text-sm font-semibold text-slate-900">Powertec Contractor App</p>
               <p className="text-xs text-slate-400 mt-0.5">
                 {lastChecked
                   ? `Last checked ${lastChecked.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}`

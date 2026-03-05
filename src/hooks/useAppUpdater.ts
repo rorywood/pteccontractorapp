@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 
-export const CURRENT_VERSION = '1.0.1'
+export const CURRENT_VERSION = '1.0.2'
 const UPDATE_SERVER = 'https://pteccontractorapp.pages.dev'
 
 export interface UpdateInfo {

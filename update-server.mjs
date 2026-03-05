@@ -1,5 +1,5 @@
 /**
- * Powertec Tools — Local Update Server
+ * Powertec Contractor App — Local Update Server
  *
  * Serves:
  *   GET /version.json  — current version info (app checks this on launch)
@@ -21,7 +21,7 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const APP_VERSION = '1.0.1'       // ← bump this when releasing a new APK
+const APP_VERSION = '1.0.2'       // ← bump this when releasing a new APK
 const APK_PATH    = path.join(__dirname, 'powertec-tools.apk')
 const PORT        = 8080
 const MY_IP       = '192.168.1.107'
@@ -29,7 +29,7 @@ const MY_IP       = '192.168.1.107'
 const versionJson = JSON.stringify({
   version: APP_VERSION,
   apkUrl: `http://${MY_IP}:${PORT}/latest.apk`,
-  releaseNotes: 'Latest version of Powertec Tools',
+  releaseNotes: 'Latest version of Powertec Contractor App',
 })
 
 const server = http.createServer((req, res) => {
@@ -64,7 +64,7 @@ const server = http.createServer((req, res) => {
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Powertec Tools</title>
+  <title>Powertec Contractor App</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: system-ui, sans-serif; background: #f8fafc; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
@@ -80,7 +80,7 @@ const server = http.createServer((req, res) => {
 <body>
   <div class="card">
     <div class="logo">PT</div>
-    <h1>Powertec Tools</h1>
+    <h1>Powertec Contractor App</h1>
     <p>Contractor field app for Powertec Telecommunications</p>
     <div class="version">v${APP_VERSION}</div>
     <a href="/latest.apk" class="btn">⬇ Download Android App</a>

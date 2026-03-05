@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Powertec Tools</string>
-    <string name="title_activity_main">Powertec Tools</string>
+    <string name="app_name">Powertec Contractor App</string>
+    <string name="title_activity_main">Powertec Contractor App</string>
     <string name="package_name">com.powertec.tools</string>
     <string name="custom_url_scheme">com.powertec.tools</string>
 </resources>

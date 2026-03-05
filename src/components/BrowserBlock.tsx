@@ -24,7 +24,7 @@ export default function BrowserBlock() {
           style={{ width: 80, height: 80, borderRadius: 16, objectFit: 'cover', margin: '0 auto 20px' }}
         />
         <h1 style={{ color: '#0f172a', fontSize: 22, fontWeight: 800, margin: '0 0 8px' }}>
-          Powertec Tools
+          Powertec Contractor App
         </h1>
         <p style={{ color: '#64748b', fontSize: 14, lineHeight: 1.6, margin: '0 0 24px' }}>
           This app is only available on Android.<br />
