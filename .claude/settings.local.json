@@ -17,7 +17,8 @@
       "Bash(powershell:*)",
       "Bash(curl:*)",
       "Bash(ANDROID_SDK_ROOT=\"C:/Users/RoryWood/AppData/Local/Android/Sdk\" JAVA_HOME=\"C:/Program Files/Eclipse Adoptium/jdk-21.0.10.7-hotspot\":*)",
-      "Bash(ANDROID_SDK_ROOT=\"C:/Users/RoryWood/AppData/Local/Android/Sdk\" JAVA_HOME=\"C:/Program Files/Eclipse Adoptium/jdk-21.0.10.7-hotspot\" npx cap sync android)"
+      "Bash(ANDROID_SDK_ROOT=\"C:/Users/RoryWood/AppData/Local/Android/Sdk\" JAVA_HOME=\"C:/Program Files/Eclipse Adoptium/jdk-21.0.10.7-hotspot\" npx cap sync android)",
+      "Bash(gh release:*)"
     ]
   }
 }
