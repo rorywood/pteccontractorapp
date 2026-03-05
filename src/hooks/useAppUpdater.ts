@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { Filesystem, Directory } from '@capacitor/filesystem'
 import { FileOpener } from '@capawesome-team/capacitor-file-opener'
 
-export const CURRENT_VERSION = '1.0.3'
+export const CURRENT_VERSION = '1.0.4'
 const UPDATE_SERVER = 'https://pteccontractorapp.pages.dev'
 
 export interface UpdateInfo {
