@@ -3,7 +3,7 @@ import { Filesystem, Directory } from '@capacitor/filesystem'
 import { FileTransfer } from '@capacitor/file-transfer'
 import { FileOpener } from '@capawesome-team/capacitor-file-opener'
 
-export const CURRENT_VERSION = '1.0.5'
+export const CURRENT_VERSION = '1.0.6'
 const UPDATE_SERVER = 'https://pteccontractorapp.pages.dev'
 
 export interface UpdateInfo {

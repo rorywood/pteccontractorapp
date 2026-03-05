@@ -1,5 +1,5 @@
 {
-  "version": "1.0.5",
-  "apkUrl": "https://github.com/rorywood/pteccontractorapp/releases/download/v1.0.5/powertec-tools.apk",
-  "releaseNotes": "Fixed in-app auto-update download"
+  "version": "1.0.6",
+  "apkUrl": "https://github.com/rorywood/pteccontractorapp/releases/download/v1.0.6/powertec-tools.apk",
+  "releaseNotes": "Photos screen now works — take photos, pick from gallery, tag to project"
 }
