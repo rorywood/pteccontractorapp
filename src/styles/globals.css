@@ -28,6 +28,16 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     overscroll-behavior: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .dark body {
+    background-color: #0d1117;
+    color: #f1f5f9;
+  }
+
+  .dark {
+    color-scheme: dark;
   }
 
   #root {

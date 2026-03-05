@@ -19,7 +19,7 @@ export default function App() {
     <>
       {!splashDone && <SplashScreen onDone={handleSplashDone} />}
     <HashRouter>
-      <div className="flex flex-col h-full bg-surface text-slate-900">
+      <div className="flex flex-col h-full bg-slate-50 dark:bg-[#0d1117] text-slate-900 dark:text-slate-100">
 
         {/* In-app APK update banner */}
         {updater.updateAvailable && updater.updateInfo && (

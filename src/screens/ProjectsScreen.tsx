@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {
   MapPin, Clock, ChevronRight, FileText, Image, Upload,
-  ArrowLeft, FolderOpen, Download, Eye,
+  ArrowLeft, FolderOpen, Download, Eye, Phone,
 } from 'lucide-react'
 
 const MOCK_PROJECTS = [
@@ -63,10 +63,10 @@ const MOCK_PROJECTS = [
   },
 ]
 
-const statusConfig = {
-  active:   { label: 'Active',   bg: 'bg-green-50', text: 'text-green-700', dot: 'bg-green-500', border: 'border-green-200' },
-  pending:  { label: 'Pending',  bg: 'bg-amber-50', text: 'text-amber-700', dot: 'bg-amber-500', border: 'border-amber-200' },
-  complete: { label: 'Complete', bg: 'bg-blue-50',  text: 'text-blue-700',  dot: 'bg-blue-500',  border: 'border-blue-200' },
+const statusMeta = {
+  active:   { label: 'Active',   accent: '#22c55e', badge: 'bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-400' },
+  pending:  { label: 'Pending',  accent: '#f59e0b', badge: 'bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-400' },
+  complete: { label: 'Complete', accent: '#1565C0', badge: 'bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-400' },
 }
 
 type Project = typeof MOCK_PROJECTS[0]
@@ -80,59 +80,64 @@ export default function ProjectsScreen() {
   }
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="bg-white border-b border-slate-100 px-4 pb-4 flex-shrink-0" style={{ paddingTop: 'max(2.5rem, env(safe-area-inset-top, 0px))' }}>
-        <h1 className="text-xl font-bold text-slate-900">My Projects</h1>
-        <p className="text-xs text-slate-400 mt-0.5">{MOCK_PROJECTS.length} projects assigned</p>
+    <div className="h-full flex flex-col bg-slate-50 dark:bg-[#0d1117]">
+      <div
+        className="bg-white dark:bg-[#161b22] border-b border-slate-100 dark:border-slate-800 px-5 pb-4 flex-shrink-0"
+        style={{ paddingTop: 'max(2.75rem, env(safe-area-inset-top, 0px))' }}
+      >
+        <h1 className="text-xl font-bold text-slate-900 dark:text-white">My Projects</h1>
+        <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{MOCK_PROJECTS.length} projects assigned</p>
       </div>
 
       <div className="flex-1 scrollable no-scrollbar px-4 py-4 flex flex-col gap-3">
         {MOCK_PROJECTS.map(project => {
-          const s = statusConfig[project.status as keyof typeof statusConfig]
+          const m = statusMeta[project.status as keyof typeof statusMeta]
           return (
             <button
               key={project.id}
               onClick={() => { setSelected(project); setActiveTab('docs') }}
-              className="card p-4 text-left tap-active w-full"
+              className="w-full text-left bg-white dark:bg-[#161b22] rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm tap-active overflow-hidden flex"
             >
-              <div className="flex items-start justify-between gap-2 mb-2">
-                <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-slate-900 text-sm leading-snug">{project.name}</p>
-                  <p className="text-xs text-slate-400 mt-0.5 font-mono">{project.code}</p>
-                </div>
-                <div className="flex items-center gap-1.5 flex-shrink-0">
-                  <span className={`badge ${s.bg} ${s.text}`}>
-                    <span className={`w-1.5 h-1.5 rounded-full ${s.dot} mr-1`} />
-                    {s.label}
-                  </span>
-                  <ChevronRight size={16} className="text-slate-300" />
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-3 mb-3">
-                <span className="flex items-center gap-1 text-xs text-slate-400">
-                  <MapPin size={11} /> {project.location}
-                </span>
-                <span className="flex items-center gap-1 text-xs text-slate-400">
-                  <Clock size={11} /> Due {project.due}
-                </span>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <span className="flex items-center gap-1 text-xs text-slate-400">
-                  <FileText size={11} /> {project.documents.length} docs
-                </span>
-                <span className="flex items-center gap-1 text-xs text-slate-400">
-                  <Image size={11} /> {project.photos.length} photos
-                </span>
-                {project.status === 'active' && (
-                  <div className="flex-1 flex items-center gap-2 justify-end">
-                    <div className="w-20 h-1 bg-slate-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-brand-500 rounded-full" style={{ width: `${project.progress}%` }} />
-                    </div>
-                    <span className="text-xs font-semibold text-brand-500">{project.progress}%</span>
+              <div className="w-1 self-stretch flex-shrink-0" style={{ background: m.accent }} />
+              <div className="flex-1 px-4 py-4 min-w-0">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-slate-900 dark:text-white text-sm leading-snug">{project.name}</p>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5 font-mono">{project.code}</p>
                   </div>
-                )}
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${m.badge}`}>
+                      {m.label}
+                    </span>
+                    <ChevronRight size={15} className="text-slate-300 dark:text-slate-600" />
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 mb-3">
+                  <span className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500">
+                    <MapPin size={11} /> {project.location}
+                  </span>
+                  <span className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500">
+                    <Clock size={11} /> Due {project.due}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <span className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500">
+                    <FileText size={11} /> {project.documents.length} docs
+                  </span>
+                  <span className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500">
+                    <Image size={11} /> {project.photos.length} photos
+                  </span>
+                  {project.status === 'active' && (
+                    <div className="flex-1 flex items-center gap-2 justify-end">
+                      <div className="w-16 h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div className="h-full bg-brand-500 rounded-full" style={{ width: `${project.progress}%` }} />
+                      </div>
+                      <span className="text-xs font-bold text-brand-500">{project.progress}%</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </button>
           )
@@ -150,81 +155,88 @@ function ProjectDetail({
   activeTab: 'docs' | 'photos'
   setActiveTab: (t: 'docs' | 'photos') => void
 }) {
-  const s = statusConfig[project.status as keyof typeof statusConfig]
+  const m = statusMeta[project.status as keyof typeof statusMeta]
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col bg-slate-50 dark:bg-[#0d1117]">
       {/* Header */}
-      <div className="bg-white border-b border-slate-100 px-4 pb-4 flex-shrink-0" style={{ paddingTop: 'max(2.5rem, env(safe-area-inset-top, 0px))' }}>
-        <button onClick={onBack} className="flex items-center gap-1 text-brand-500 text-sm font-medium tap-active mb-3">
+      <div
+        className="bg-white dark:bg-[#161b22] border-b border-slate-100 dark:border-slate-800 px-4 pb-4 flex-shrink-0"
+        style={{ paddingTop: 'max(2.75rem, env(safe-area-inset-top, 0px))' }}
+      >
+        <button onClick={onBack} className="flex items-center gap-1.5 text-brand-500 text-sm font-semibold tap-active mb-3">
           <ArrowLeft size={16} /> Projects
         </button>
         <div className="flex items-start justify-between gap-2">
-          <div>
-            <h1 className="text-lg font-bold text-slate-900 leading-snug">{project.name}</h1>
-            <p className="text-xs text-slate-400 font-mono mt-0.5">{project.code}</p>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-lg font-bold text-slate-900 dark:text-white leading-snug">{project.name}</h1>
+            <p className="text-xs text-slate-400 dark:text-slate-500 font-mono mt-0.5">{project.code}</p>
           </div>
-          <span className={`badge ${s.bg} ${s.text} flex-shrink-0`}>
-            <span className={`w-1.5 h-1.5 rounded-full ${s.dot} mr-1`} />
-            {s.label}
+          <span className={`text-xs font-semibold px-2.5 py-1 rounded-full flex-shrink-0 ${m.badge}`}>
+            {m.label}
           </span>
         </div>
       </div>
 
       <div className="flex-1 scrollable no-scrollbar">
         {/* Info strip */}
-        <div className="bg-slate-50 border-b border-slate-100 px-4 py-3 flex gap-4">
-          <div className="flex items-center gap-1.5 text-xs text-slate-500">
+        <div className="bg-white dark:bg-[#161b22] border-b border-slate-100 dark:border-slate-800 px-5 py-3 flex gap-5">
+          <span className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
             <MapPin size={12} className="text-slate-400" /> {project.location}
-          </div>
-          <div className="flex items-center gap-1.5 text-xs text-slate-500">
+          </span>
+          <span className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
             <Clock size={12} className="text-slate-400" /> Due {project.due}
-          </div>
+          </span>
         </div>
 
         <div className="px-4 py-4 flex flex-col gap-4">
-          {/* Description */}
-          <div className="card p-4">
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Scope of Work</p>
-            <p className="text-sm text-slate-700 leading-relaxed">{project.description}</p>
+          {/* Scope */}
+          <div className="bg-white dark:bg-[#161b22] rounded-2xl border border-slate-200 dark:border-slate-800 p-4">
+            <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">Scope of Work</p>
+            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{project.description}</p>
           </div>
 
           {/* Progress */}
           {project.status === 'active' && (
-            <div className="card p-4">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Progress</p>
+            <div className="bg-white dark:bg-[#161b22] rounded-2xl border border-slate-200 dark:border-slate-800 p-4">
+              <div className="flex items-center justify-between mb-2.5">
+                <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Progress</p>
                 <span className="text-sm font-bold text-brand-500">{project.progress}%</span>
               </div>
-              <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
                 <div className="h-full bg-brand-500 rounded-full transition-all" style={{ width: `${project.progress}%` }} />
               </div>
             </div>
           )}
 
           {/* PM Contact */}
-          <div className="card p-4 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
+          <div className="bg-white dark:bg-[#161b22] rounded-2xl border border-slate-200 dark:border-slate-800 p-4 flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
               {project.contact.name.split(' ').map(n => n[0]).join('')}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-slate-900">{project.contact.name}</p>
-              <p className="text-xs text-slate-400">{project.contact.role}</p>
+              <p className="text-sm font-semibold text-slate-900 dark:text-white">{project.contact.name}</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500">{project.contact.role}</p>
             </div>
-            <a href={`tel:${project.contact.phone}`} className="text-xs text-brand-500 font-semibold tap-active">
-              Call
+            <a
+              href={`tel:${project.contact.phone}`}
+              className="flex items-center gap-1.5 bg-brand-500 text-white text-xs font-bold px-3 py-2 rounded-xl tap-active"
+            >
+              <Phone size={13} /> Call
             </a>
           </div>
 
-          {/* Tabs: Documents / Photos */}
+          {/* Tabs */}
           <div>
-            <div className="flex bg-slate-100 rounded-xl p-1 gap-1 mb-3">
+            <div className="flex bg-slate-100 dark:bg-slate-800 rounded-xl p-1 gap-1 mb-3">
               {(['docs', 'photos'] as const).map(tab => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`flex-1 py-2 rounded-lg text-sm font-semibold tap-active transition-all ${
-                    activeTab === tab ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400'
+                    activeTab === tab
+                      ? 'bg-white dark:bg-[#161b22] text-slate-900 dark:text-white shadow-sm'
+                      : 'text-slate-400 dark:text-slate-500'
                   }`}
                 >
                   {tab === 'docs' ? `Documents (${project.documents.length})` : `Photos (${project.photos.length})`}
@@ -233,23 +245,23 @@ function ProjectDetail({
             </div>
 
             {activeTab === 'docs' ? (
-              <div className="card overflow-hidden">
+              <div className="bg-white dark:bg-[#161b22] rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
                 {project.documents.map((doc, i) => (
                   <div
                     key={doc.id}
-                    className={`flex items-center gap-3 px-4 py-3.5 ${i < project.documents.length - 1 ? 'border-b border-slate-100' : ''}`}
+                    className={`flex items-center gap-3 px-4 py-3.5 ${i < project.documents.length - 1 ? 'border-b border-slate-100 dark:border-slate-800' : ''}`}
                   >
-                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${doc.type === 'pdf' ? 'bg-red-50' : 'bg-blue-50'}`}>
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${doc.type === 'pdf' ? 'bg-red-50 dark:bg-red-950' : 'bg-blue-50 dark:bg-blue-950'}`}>
                       {doc.type === 'pdf'
                         ? <FileText size={16} className="text-red-500" />
                         : <Image size={16} className="text-blue-500" />
                       }
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm text-slate-900 font-medium truncate">{doc.name}</p>
-                      <p className="text-xs text-slate-400">{doc.size}</p>
+                      <p className="text-sm text-slate-900 dark:text-white font-medium truncate">{doc.name}</p>
+                      <p className="text-xs text-slate-400 dark:text-slate-500">{doc.size}</p>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
                       <button className="p-2 text-slate-400 tap-active"><Eye size={16} /></button>
                       <button className="p-2 text-slate-400 tap-active"><Download size={16} /></button>
                     </div>
@@ -260,26 +272,24 @@ function ProjectDetail({
               <div className="flex flex-col gap-3">
                 {project.photos.length > 0 ? (
                   project.photos.map(photo => (
-                    <div key={photo.id} className="card px-4 py-3.5 flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0">
+                    <div key={photo.id} className="bg-white dark:bg-[#161b22] rounded-2xl border border-slate-200 dark:border-slate-800 px-4 py-3.5 flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0">
                         <Image size={18} className="text-slate-400" />
                       </div>
                       <div className="flex-1">
-                        <p className="text-sm text-slate-900 font-medium">{photo.name}</p>
-                        <p className="text-xs text-slate-400">{photo.date}</p>
+                        <p className="text-sm text-slate-900 dark:text-white font-medium">{photo.name}</p>
+                        <p className="text-xs text-slate-400 dark:text-slate-500">{photo.date}</p>
                       </div>
                       <button className="p-2 text-slate-400 tap-active"><Eye size={16} /></button>
                     </div>
                   ))
                 ) : (
-                  <div className="flex flex-col items-center justify-center py-10 gap-2">
-                    <FolderOpen size={32} className="text-slate-200" />
-                    <p className="text-sm text-slate-400">No photos uploaded yet</p>
+                  <div className="flex flex-col items-center justify-center py-12 gap-2">
+                    <FolderOpen size={36} className="text-slate-200 dark:text-slate-700" />
+                    <p className="text-sm text-slate-400 dark:text-slate-500">No photos uploaded yet</p>
                   </div>
                 )}
-
-                {/* Upload button */}
-                <button className="card p-4 flex items-center justify-center gap-2 text-brand-500 font-semibold text-sm tap-active border-dashed border-2 border-brand-200 bg-brand-50">
+                <button className="bg-brand-50 dark:bg-brand-500/10 border-2 border-dashed border-brand-200 dark:border-brand-500/30 text-brand-500 rounded-2xl p-4 flex items-center justify-center gap-2 font-semibold text-sm tap-active">
                   <Upload size={18} />
                   Upload Completion Photos
                 </button>

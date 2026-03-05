@@ -4,6 +4,7 @@ import App from './App'
 import BrowserBlock from './components/BrowserBlock'
 import './styles/globals.css'
 import { registerSW } from './utils/registerSW'
+import { ThemeProvider } from './context/ThemeContext'
 
 registerSW()
 
@@ -12,6 +13,8 @@ const isNative = !!(window as any).Capacitor?.isNativePlatform?.()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    {isNative ? <App /> : <BrowserBlock />}
+    <ThemeProvider>
+      {isNative ? <App /> : <BrowserBlock />}
+    </ThemeProvider>
   </React.StrictMode>
 )
