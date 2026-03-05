@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 
 export const CURRENT_VERSION = '1.0.1'
-const UPDATE_SERVER = 'http://192.168.1.107:8080'
+const UPDATE_SERVER = 'https://pteccontractorapp.pages.dev'
 
 export interface UpdateInfo {
   version: string
