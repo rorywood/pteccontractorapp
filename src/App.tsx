@@ -23,7 +23,13 @@ export default function App() {
 
         {/* In-app APK update banner */}
         {updater.updateAvailable && updater.updateInfo && (
-          <AppUpdatePrompt info={updater.updateInfo} onDismiss={updater.dismiss} />
+          <AppUpdatePrompt
+            info={updater.updateInfo}
+            onDismiss={updater.dismiss}
+            onInstall={updater.downloadAndInstall}
+            downloadState={updater.downloadState}
+            downloadProgress={updater.downloadProgress}
+          />
         )}
 
         <main className="flex-1 overflow-hidden relative">

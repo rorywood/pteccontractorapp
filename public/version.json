@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
-  "apkUrl": "https://github.com/rorywood/pteccontractorapp/releases/download/v1.0.2/powertec-tools.apk",
-  "releaseNotes": "Renamed to Powertec Contractor App"
+  "version": "1.0.3",
+  "apkUrl": "https://github.com/rorywood/pteccontractorapp/releases/download/v1.0.3/powertec-tools.apk",
+  "releaseNotes": "One-tap auto update — download and install in-app"
 }
